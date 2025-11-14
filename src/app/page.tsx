@@ -114,7 +114,7 @@ export default function EventWibesLanding() {
               <button onClick={() => setMenuOpen(false)} aria-label="close"><X/></button>
             </div>
             <div className="flex flex-col gap-3 text-lg">
-              <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+              <a href="#" onClick={() => setMenuOpen(false)}>Services</a>
               <a href="#OurRecentWorks" onClick={() => setMenuOpen(false)}>OurRecentWorks</a>
               <a href="#pricing" onClick={() => setMenuOpen(false)}>Packages</a>
               <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
