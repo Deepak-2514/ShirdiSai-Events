@@ -1,12 +1,8 @@
-"use client";
-
-import React, { useEffect, useRef, useState } from "react";
+"use client"
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { MapPin, Phone, Mail, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import { LoadingScreen } from "./components/LoadingScreen";
 
 // EventWibes — Single-file React landing page (TailwindCSS + framer-motion)
 // Enhanced styling, video background in hero, improved OurRecentWorks, modal preview.
@@ -21,18 +17,10 @@ const OurRecentWorks = [
 ];
 
 export default function EventWibesLanding() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [lightbox, setLightbox] = useState({ open: false, currentIndex: 0 });
+  const videoRef = useRef<HTMLVideoElement>(null);
   const autoAdvanceRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    // Keep a minimal loading phase before first paint completes.
-    const raf = requestAnimationFrame(() => {
-      const t = window.setTimeout(() => setIsLoading(false), 250);
-      return () => window.clearTimeout(t);
-    });
-    return () => cancelAnimationFrame(raf);
-  }, []);
 
   const services = [
     { title: "Full Venue Styling", desc: "End-to-end draping, lighting, centerpieces and ambience.", icon: "🎉" },
@@ -41,7 +29,11 @@ export default function EventWibesLanding() {
     { title: "Delivery & Setup", desc: "Careful delivery with professional setup and takedown crews.", icon: "🚚" },
   ];
 
-  // Video background moved into <Hero /> (kept ref here for now to avoid unrelated refactors).
+  const toggleVideo = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) videoRef.current.play();
+    else videoRef.current.pause();
+  };
 
   const nextImage = () => {
     setLightbox(prev => ({
@@ -81,18 +73,107 @@ export default function EventWibesLanding() {
     };
   }, [lightbox.open]);
 
-  if (isLoading) {
-    return (
-      <LoadingScreen />
-    );
-  }
-
   return (
-    <>
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-900 antialiased">
       {/* NAV */}
-      <Navbar />
-      <Hero onViewWork={() => setLightbox({ open: true, currentIndex: 0 })} />
+      <header className="fixed w-full z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between backdrop-blur-md bg-white/40 rounded-b-2xl shadow">
+          <div className="flex items-center gap-3">
+          <div className="relative h-15 w-90"> {/* adjust h-10 / w-40 as needed */}
+  <Image
+    src="/logo.png"
+    alt="Shirdi Sai Events logo"
+    fill
+    className="object-contain"
+    priority
+  />
+</div>
+
+
+          {/* <div className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-rose-600 via-fuchsia-600 to-indigo-600 h-10 "><img src="/Logo.png" alt="EventWibes Logo" className="w-50" /></div>
+            <div className="text-sm text-slate-600">Decor | Styling | Production</div> */}
+          </div>
+
+          <nav className="hidden md:flex gap-6 items-center text-sm">
+            <a href="#services" className="hover:text-rose-600 transition">Services</a>
+            <a href="#" className="hover:text-rose-600 transition">Gallery</a>
+            <a href="#pricing" className="hover:text-rose-600 transition">Packages</a>
+            <a href="#contact" className="hover:text-rose-600 transition">Contact</a>
+          </nav>
+
+          <div className="md:hidden">
+            <button onClick={() => setMenuOpen(!menuOpen)} aria-label="menu">
+              <Menu size={20} />
+            </button>
+          </div>
+        </div>
+
+        {menuOpen && (
+          <div className="md:hidden px-6 py-4 bg-white/90 backdrop-blur-md shadow-lg">
+            <div className="flex justify-end mb-2">
+              <button onClick={() => setMenuOpen(false)} aria-label="close"><X/></button>
+            </div>
+            <div className="flex flex-col gap-3 text-lg">
+              <a href="#" onClick={() => setMenuOpen(false)}>Services</a>
+              <a href="#OurRecentWorks" onClick={() => setMenuOpen(false)}>OurRecentWorks</a>
+              <a href="#pricing" onClick={() => setMenuOpen(false)}>Packages</a>
+              <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* HERO with video background */}
+      <section className="relative pt-24">
+        <div className="absolute inset-0 overflow-hidden">
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover brightness-75"
+            autoPlay
+            muted
+            loop
+            playsInline
+            // poster="https://images.unsplash.com/photo-1509223197845-458d87318791?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&s=4"
+            onError={(e) => {
+              // Fallback to poster image if video fails to load
+              const target = e.target as HTMLVideoElement;
+              target.style.display = 'none';
+            }}
+          >
+            <source src="/VID-20251108-WA0024.mp4" type="video/mp4" />
+          </video>
+
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30 mix-blend-multiply" />
+        </div>
+
+        <div className="relative max-w-6xl mx-auto px-6 py-28 flex flex-col md:flex-row items-center gap-8">
+          <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.6 }} className="w-full md:w-1/2 text-white">
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-lg">Stunning event decor handcrafted for your moment.</h1>
+            <p className="mt-4 text-lg text-white/90">We design, build and deliver immersive experiences from intimate birthdays to large-scale productions.</p>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="#contact" className="inline-block rounded-full bg-white/95 text-rose-600 px-6 py-3 font-semibold shadow-lg">Request a quote</a>
+              <button onClick={() => setLightbox({ open: true, currentIndex: 0 })} className="inline-block rounded-full bg-white/10 border border-white/30 px-5 py-3 text-white">View work</button>
+            </div>
+
+            <div className="mt-6 flex gap-6 text-sm text-white/80 items-center">
+              <div className="flex items-center gap-2"><Phone size={14}/> <span>+91 63600 49821</span></div>
+              <div className="flex items-center gap-2"><MapPin size={14}/> <span>vijayanagara City,KAR</span></div>
+            </div>
+
+            <div className="mt-6 flex items-center gap-3">
+              <button onClick={toggleVideo} className="rounded-md bg-white/10 px-3 py-2 text-white text-sm">Play / Pause background</button>
+              <div className="text-xs text-white/70">Muted loop for ambience. Use the button to pause.</div>
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ scale: 0.98, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6 }} className="w-full md:w-1/2">
+            {/* <div className="bg-white/90 rounded-3xl p-4 shadow-2xl backdrop-blur-md"> */}
+              {/* <img src={OurRecentWorks[1]} alt="event sample" className="w-full h-96 object-cover rounded-2xl" /> */}
+            {/* </div> */}
+          </motion.div>
+        </div>
+      </section>
 
       {/* SERVICES */}
       <section id="services" className="max-w-6xl mx-auto px-6 py-14">
@@ -187,7 +268,7 @@ export default function EventWibesLanding() {
               <a className="rounded-full border px-4 py-2" href="mailto:hello@eventwibes.example">Email us</a>
             </div>
 
-          <div className="mt-3 text-xs text-slate-500">By contacting you agree to our terms. We’ll reply in 1–2 business days.</div>
+            <div className="mt-3 text-xs text-slate-500">By contacting you agree to our terms. We’ll reply in 1–2 business days.</div>
           </form>
 
           <div className="mt-4 text-sm text-slate-600 flex flex-col gap-2">
@@ -263,6 +344,5 @@ export default function EventWibesLanding() {
         </div>
       )}
     </div>
-    </>
   );
 }
