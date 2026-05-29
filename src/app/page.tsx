@@ -7,6 +7,8 @@ import Image from "next/image";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import { LoadingScreen } from "./components/LoadingScreen";
+import PinterestEventGrid from "./components/PremiumEventHero";
+import Service from "./components/Service";
 
 // EventWibes — Single-file React landing page (TailwindCSS + framer-motion)
 // Enhanced styling, video background in hero, improved OurRecentWorks, modal preview.
@@ -94,37 +96,9 @@ export default function EventWibesLanding() {
       <Navbar />
       <Hero onViewWork={() => setLightbox({ open: true, currentIndex: 0 })} />
 
-      {/* SERVICES */}
-      <section id="services" className="max-w-6xl mx-auto px-6 py-14">
-        <h2 className="text-3xl font-bold">What we offer</h2>
-        <p className="text-slate-600 mt-2">Curated styling, props, lighting, and full production support.</p>
+      <Service />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-          {services.map((s) => (
-            <motion.div key={s.title} whileHover={{ y: -6 }} className="bg-gradient-to-br from-white to-rose-50 rounded-2xl p-6 shadow-lg border border-white/50">
-              <div className="text-4xl">{s.icon}</div>
-              <h3 className="mt-3 font-semibold text-lg">{s.title}</h3>
-              <p className="mt-2 text-sm text-slate-600">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* OurRecentWorks */}
-      <section id="OurRecentWorks" className="bg-white py-14">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold">OurRecentWorks</h2>
-          <p className="text-slate-600 mt-2">Real installs and setups from recent events.</p>
-
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-            {OurRecentWorks.map((src, i) => (
-              <motion.div key={i} whileHover={{ scale: 1.03 }} className="rounded-xl overflow-hidden shadow cursor-pointer" onClick={() => setLightbox({ open: true, currentIndex: i })}>
-                <img src={src} alt={`OurRecentWorks-${i}`} className="w-full h-40 object-cover" />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PinterestEventGrid />
 
       {/* PRICING */}
       <section id="pricing" className="max-w-6xl mx-auto px-6 py-14">

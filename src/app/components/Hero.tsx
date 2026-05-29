@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Phone } from "lucide-react";
-import { useRef } from "react";
+import { ChevronDown, MapPin, Phone } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 type HeroProps = {
   onViewWork?: () => void;
@@ -10,96 +10,161 @@ type HeroProps = {
 
 export default function Hero({ onViewWork }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
 
   const toggleVideo = () => {
     const el = videoRef.current;
     if (!el) return;
-    if (el.paused) void el.play();
-    else el.pause();
+
+    if (el.paused) {
+      void el.play();
+    } else {
+      el.pause();
+    }
   };
 
+  const toggleMute = () => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    el.muted = !el.muted;
+    setMuted(el.muted);
+  };
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    el.play().catch(() => {});
+  }, []);
+
   return (
-    <section className="relative pt-[72px]">
-      <div className="absolute inset-0 overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Background Video */}
+      <div className="absolute inset-0">
         <video
           ref={videoRef}
-          className="h-full w-full object-cover brightness-75"
+          className="h-full w-full object-cover"
           autoPlay
           muted
           loop
           playsInline
-          onError={(e) => {
-            const target = e.target as HTMLVideoElement;
-            target.style.display = "none";
-          }}
         >
           <source src="/VID-20251108-WA0024.mp4" type="video/mp4" />
         </video>
 
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30 mix-blend-multiply" />
+        {/* Premium Dark Overlay */}
+        <div className="absolute inset-0" />
+
+        {/* Gradient Glow */}
+        <div className="absolute inset-0" />
       </div>
 
-      <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-8 px-6 py-28 md:flex-row">
-        <motion.div
-          initial={{ x: -20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="w-full text-white md:w-1/2"
-        >
-          <h1 className="text-4xl font-extrabold leading-tight drop-shadow-lg md:text-5xl">
-            Stunning event decor handcrafted for your moment.
-          </h1>
-          <p className="mt-4 text-lg text-white/90">
-            We design, build and deliver immersive experiences from intimate
-            birthdays to large-scale productions.
-          </p>
+      {/* Hero Content */}
+<section className="relative h-screen overflow-hidden">
+  {/* Background Image / Video */}
+  <div className="absolute inset-0">
+    <img
+      src="/hero-image.jpg"
+      alt="Event Decoration"
+      className="h-full w-full object-cover"
+    />
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="#contact"
-              className="inline-block rounded-full bg-white/95 px-6 py-3 font-semibold text-rose-600 shadow-lg"
-            >
-              Request a quote
-            </a>
-            <button
-              type="button"
-              onClick={onViewWork}
-              className="inline-block rounded-full border border-white/30 bg-white/10 px-5 py-3 text-white"
-            >
-              View work
-            </button>
-          </div>
+    {/* Dark Overlay */}
+    <div className="absolute inset-0 bg-black/55" />
+  </div>
 
-          <div className="mt-6 flex items-center gap-6 text-sm text-white/80">
-            <div className="flex items-center gap-2">
-              <Phone size={14} /> <span>+91 63600 49821</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <MapPin size={14} /> <span>vijayanagara City,KAR</span>
-            </div>
-          </div>
+  {/* Hero Content */}
+  <div className="absolute inset-x-0 top-[62%] z-10 -translate-y-1/2 px-6">
+    <div className="mx-auto max-w-5xl text-center text-white">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        {/* Premium Label */}
+        <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.4em] text-white/60 sm:text-[11px] md:mb-6">
+          Crafted Event Experiences
+        </p>
 
-          <div className="mt-6 flex items-center gap-3">
-            <button
-              type="button"
-              onClick={toggleVideo}
-              className="rounded-md bg-white/10 px-3 py-2 text-sm text-white"
-            >
-              Play / Pause background
-            </button>
-            <div className="text-xs text-white/70">
-              Muted loop for ambience. Use the button to pause.
-            </div>
-          </div>
-        </motion.div>
+        {/* Main Heading */}
+        <h1 className="text-4xl font-black leading-[0.95] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+          Decor that turns
+          <span className="block text-white/90">
+            moments into memories.
+          </span>
+        </h1>
 
-        <motion.div
-          initial={{ scale: 0.98, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="w-full md:w-1/2"
-        />
-      </div>
+        {/* Description */}
+        <p className="mx-auto mt-5 max-w-xs text-sm leading-6 text-white/70 sm:max-w-md sm:text-base md:mt-7 md:max-w-2xl md:text-lg md:leading-8">
+          Elegant event styling with immersive visuals, luxury aesthetics and
+          timeless celebration experiences.
+        </p>
+
+        {/* CTA Buttons */}
+        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row md:mt-10">
+          <button className="rounded-full bg-[#d9a15b] px-8 py-3 text-sm font-semibold text-black transition hover:scale-105">
+            Book Now
+          </button>
+
+          <button className="rounded-full border border-white/30 px-8 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/10">
+            View Gallery
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  </div>
+</section>
+
+      {/* Zomato Style Scroll Down Indicator */}
+      {/* Small Zomato Style Scroll Indicator */}
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{
+    opacity: 1,
+    y: [0, 6, 0],
+  }}
+  transition={{
+    duration: 1.8,
+    repeat: Infinity,
+    ease: "easeInOut",
+  }}
+  className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2"
+>
+  <a
+    href="#services"
+    className="group flex flex-col items-center"
+  >
+    {/* Small Text */}
+    <div className="flex items-center gap-2 text-white/85">
+      <span className="text-[25px] font-medium tracking-wide">
+        Scroll down
+      </span>
+
+      {/* Tiny Animated Arrow */}
+      <ChevronDown
+        size={16}
+        strokeWidth={2.5}
+        className="transition-transform duration-300 group-hover:translate-y-1"
+      />
+    </div>
+
+    {/* Small Premium Line Texture */}
+    <div className="mt-3 h-[1px] w-16 overflow-hidden rounded-full bg-white/10">
+      <motion.div
+        animate={{
+          x: ["-100%", "100%"],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="h-full w-8 bg-gradient-to-r from-transparent via-white/80 to-transparent"
+      />
+    </div>
+  </a>
+</motion.div>
     </section>
   );
 }
