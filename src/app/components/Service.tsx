@@ -10,7 +10,7 @@ const Service = () => {
   className="relative w-full overflow-hidden bg-white py-28"
 >
   {/* background glow */}
-  <div className="absolute -top-40 left-0 h-[400px] w-[400px] rounded-full bg-pink-400/20 blur-[120px]" />
+  <div className="absolute -top-40 left-0 h-[300px] w-[400px] rounded-full bg-pink-400/20 blur-[120px]" />
   <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-violet-400/20 blur-[140px]" />
 
   <div className="relative px-6 md:px-10 lg:px-16 xl:px-24">

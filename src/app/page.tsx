@@ -9,6 +9,7 @@ import Hero from "./components/Hero";
 import { LoadingScreen } from "./components/LoadingScreen";
 import PinterestEventGrid from "./components/PremiumEventHero";
 import Service from "./components/Service";
+import DropPhone from "./components/DropPhone";
 
 // EventWibes — Single-file React landing page (TailwindCSS + framer-motion)
 // Enhanced styling, video background in hero, improved OurRecentWorks, modal preview.
@@ -91,48 +92,27 @@ export default function EventWibesLanding() {
 
   return (
     <>
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-900 antialiased">
+    <div className="min-h-screen from-slate-50 to-white text-slate-900 antialiased">
       {/* NAV */}
       <Navbar />
       <Hero onViewWork={() => setLightbox({ open: true, currentIndex: 0 })} />
 
       <Service />
 
+      <DropPhone />
+
       <PinterestEventGrid />
-
-      {/* PRICING */}
-      <section id="pricing" className="max-w-6xl mx-auto px-6 py-14">
-        <h2 className="text-3xl font-bold">Popular Packages</h2>
-        <p className="text-slate-600 mt-2">Transparent baseline pricing — we customize to your needs.</p>
-
-        <div className="mt-6 grid md:grid-cols-3 gap-6">
-          <motion.div whileHover={{ y: -6 }} className="bg-white rounded-2xl p-6 shadow-lg">
-            <div className="text-sm font-semibold">Starter</div>
-            <div className="text-3xl font-extrabold mt-3">₹8,999</div>
-            <p className="mt-3 text-sm text-slate-600">Backdrop, table styling (up to 3), and lightweight decor.</p>
-            <a href="#contact" className="mt-4 inline-block rounded-full bg-rose-600 text-white px-4 py-2">Book starter</a>
-          </motion.div>
-
-          <motion.div whileHover={{ y: -6 }} className="bg-gradient-to-br from-white to-rose-50 rounded-2xl p-6 shadow-lg border-2 border-rose-100">
-            <div className="text-sm font-semibold">Signature</div>
-            <div className="text-3xl font-extrabold mt-3">₹18,500</div>
-            <p className="mt-3 text-sm text-slate-600">Full styling, lighting, props and on-site support for small venues.</p>
-            <a href="#contact" className="mt-4 inline-block rounded-full bg-rose-600 text-white px-4 py-2">Book signature</a>
-          </motion.div>
-
-          <motion.div whileHover={{ y: -6 }} className="bg-white rounded-2xl p-6 shadow-lg">
-            <div className="text-sm font-semibold">Premium</div>
-            <div className="text-3xl font-extrabold mt-3">Custom</div>
-            <p className="mt-3 text-sm text-slate-600">Large venues, custom builds and end-to-end production.</p>
-            <a href="#contact" className="mt-4 inline-block rounded-full bg-rose-600 text-white px-4 py-2">Get custom quote</a>
-          </motion.div>
-        </div>
-      </section>
 
       {/* FAQ + CONTACT */}
       <section className="max-w-6xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-8">
-        <div>
-          <h3 className="text-2xl font-bold">Frequently asked</h3>
+        <div className="space-y-6">
+          <h3 className=" text-5xl
+          md:text-7xl
+          xl:text-8xl
+          font-black
+          tracking-[-0.06em]
+          leading-[0.9]
+          text-zinc-950">Frequently asked</h3>
           <div className="mt-4 space-y-3">
             <details className="bg-white rounded-xl p-4 shadow">
               <summary className="font-medium cursor-pointer">Do you offer same-day setup?</summary>

@@ -64,11 +64,11 @@ export default function Hero({ onViewWork }: HeroProps) {
 <section className="relative h-screen overflow-hidden">
   {/* Background Image / Video */}
   <div className="absolute inset-0">
-    <img
+    {/* <img
       src="/hero-image.jpg"
       alt="Event Decoration"
       className="h-full w-full object-cover"
-    />
+    /> */}
 
     {/* Dark Overlay */}
     <div className="absolute inset-0 bg-black/55" />
