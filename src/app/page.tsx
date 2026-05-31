@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
+import { CardsParallax }from "./components/Hero";
 import { LoadingScreen } from "./components/LoadingScreen";
 import PinterestEventGrid from "./components/PremiumEventHero";
 import Service from "./components/Service";
@@ -17,10 +17,42 @@ import DropPhone from "./components/DropPhone";
 // Dependencies: framer-motion, lucide-react, tailwindcss
 
 const OurRecentWorks = [
-  "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=4",
-  "https://images.unsplash.com/photo-1710854897963-d45e8e26f7fc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
-  "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=2",
-  "https://images.unsplash.com/photo-1608655624472-49349f55d220?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
+  {
+    title: "Entrance Decor",
+    description: "Luxury entrance decoration for weddings",
+    src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=1400&auto=format&fit=crop",
+    tag: "Wedding",
+    link: "#",
+    color: "#000000",
+    textColor: "#ffffff",
+  },
+  {
+    title: "Table Styling",
+    description: "Premium table arrangements",
+    src: "https://images.unsplash.com/photo-1710854897963-d45e8e26f7fc?auto=format&fit=crop&q=80&w=687",
+    tag: "Reception",
+    link: "#",
+    color: "#000000",
+    textColor: "#ffffff",
+  },
+  {
+    title: "Ceremony Backdrop",
+    description: "Elegant floral backdrop designs",
+    src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1400&auto=format&fit=crop",
+    tag: "Wedding",
+    link: "#",
+    color: "#000000",
+    textColor: "#ffffff",
+  },
+  {
+    title: "Reception Lounge",
+    description: "Comfortable and stylish seating",
+    src: "https://images.unsplash.com/photo-1608655624472-49349f55d220?auto=format&fit=crop&q=80&w=1170",
+    tag: "Reception",
+    link: "#",
+    color: "#000000",
+    textColor: "#ffffff",
+  },
 ];
 
 export default function EventWibesLanding() {
@@ -95,7 +127,8 @@ export default function EventWibesLanding() {
     <div className="min-h-screen from-slate-50 to-white text-slate-900 antialiased">
       {/* NAV */}
       <Navbar />
-      <Hero onViewWork={() => setLightbox({ open: true, currentIndex: 0 })} />
+      {/* <Hero onViewWork={() => setLightbox({ open: true, currentIndex: 0 })} /> */}
+      <CardsParallax items={OurRecentWorks} />
 
       <Service />
 
@@ -204,7 +237,7 @@ export default function EventWibesLanding() {
             </button>
             
             <img 
-              src={OurRecentWorks[lightbox.currentIndex]} 
+              src={OurRecentWorks[lightbox.currentIndex].image} 
               alt={`preview-${lightbox.currentIndex}`} 
               className="w-full h-auto rounded-xl shadow-2xl" 
             />

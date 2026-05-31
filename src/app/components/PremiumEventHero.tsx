@@ -71,7 +71,7 @@ const items = [
 
 export default function PinterestEventGrid() {
   return (
-    <section className="min-h-screen bg-white px-4 py-10 md:px-8 mt-10">
+    <section className="min-h-screen bg-white px-4 py-10 md:px-8">
       <div className="mx-auto max-w-7xl">
         {/* Heading */}
         <div className="m-5">
@@ -85,14 +85,14 @@ export default function PinterestEventGrid() {
             Event Inspiration
           </h1>
 
-          {/* <p className="mt-3 max-w-2xl text-neutral-600">
+          <p className="mt-3 max-w-2xl text-neutral-600">
             Discover premium event ideas, venues, celebrations, and experiences
             curated for your next unforgettable moment.
-          </p> */}
+          </p>
         </div>
 
         {/* Masonry Layout */}
-        <div className="columns-2 sm:columns-1 md:columns-3 lg:columns-4 gap-4">
+        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
           {items.map((item, index) => (
             <motion.div
               key={item.id}
@@ -141,4 +141,4 @@ export default function PinterestEventGrid() {
       </div>
     </section>
   );
-}``
+}

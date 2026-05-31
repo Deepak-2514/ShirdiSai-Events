@@ -31,8 +31,8 @@ export default function DropPhone() {
     <section
       id="callback"
       aria-label="Request a callback"
-      className="relative w-full overflow-hidden bg-zinc-950"
-      style={{ aspectRatio: "1200 / 557", maxHeight: "557px", minHeight: "280px" }}
+      className="relative w-full overflow-hidden bg-white/50 py-12 sm:py-16 lg:py-20"
+      // style={{ aspectRatio: "1200 / 557", maxHeight: "557px", minHeight: "280px" }}
     >
       {/* Background collage — full width, cropped to section height */}
       <div className="absolute inset-0">
@@ -46,7 +46,7 @@ export default function DropPhone() {
         />
 
         {/* Layered overlays for readability + brand tint */}
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/92 via-zinc-950/75 to-zinc-950/45" />
+        <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 bg-gradient-to-br from-violet-900/30 via-transparent to-pink-900/20" />
         <div className="absolute inset-0 backdrop-blur-[2px]" />
       </div>
@@ -65,17 +65,17 @@ export default function DropPhone() {
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Eyebrow */}
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-1.5 backdrop-blur-md">
+            {/* <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-1.5 backdrop-blur-md">
               <Sparkles className="h-3.5 w-3.5 text-amber-300" />
               <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80">
                 Quick callback
               </span>
-            </div>
+            </div> */}
 
             {/* Headline */}
             <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] font-black leading-[1.05] tracking-[-0.04em] text-white">
               Drop your
-              <span className="block bg-gradient-to-r from-pink-300 via-fuchsia-200 to-violet-300 bg-clip-text text-transparent">
+              <span className="m-3 bg-gradient-to-r from-pink-300 via-fuchsia-200 to-violet-300 bg-clip-text text-transparent">
                 phone number
               </span>
             </h2>
@@ -88,7 +88,7 @@ export default function DropPhone() {
             </p>
 
             {/* Trust chips */}
-            <div className="mt-5 flex flex-wrap items-center gap-3">
+            {/* <div className="mt-5 flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/8 px-3 py-1.5 text-xs font-medium text-white/70 backdrop-blur-sm">
                 <Clock className="h-3.5 w-3.5 text-amber-300" />
                 5–7 hr response
@@ -97,7 +97,7 @@ export default function DropPhone() {
                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-300" />
                 No spam, ever
               </span>
-            </div>
+            </div> */}
 
             {/* Form card */}
             <motion.div
