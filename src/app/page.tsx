@@ -237,7 +237,7 @@ export default function EventWibesLanding() {
             </button>
             
             <img 
-              src={OurRecentWorks[lightbox.currentIndex].image} 
+              src={OurRecentWorks[lightbox.currentIndex].src} 
               alt={`preview-${lightbox.currentIndex}`} 
               className="w-full h-auto rounded-xl shadow-2xl" 
             />
