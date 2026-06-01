@@ -11,6 +11,8 @@ import PinterestEventGrid from "./components/PremiumEventHero";
 import Service from "./components/Service";
 import DropPhone from "./components/DropPhone";
 import Footer from "./components/Footer";
+import FaQContact from "./components/FaQContact";
+import Map from "./components/Map";
 
 // EventWibes — Single-file React landing page (TailwindCSS + framer-motion)
 // Enhanced styling, video background in hero, improved OurRecentWorks, modal preview.
@@ -138,60 +140,10 @@ export default function EventWibesLanding() {
       <PinterestEventGrid />
 
       {/* FAQ + CONTACT */}
-      <section className="max-w-6xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <h3 className=" text-5xl
-          md:text-7xl
-          xl:text-8xl
-          font-black
-          tracking-[-0.06em]
-          leading-[0.9]
-          text-zinc-950">Frequently asked</h3>
-          <div className="mt-4 space-y-3">
-            <details className="bg-white rounded-xl p-4 shadow">
-              <summary className="font-medium cursor-pointer">Do you offer same-day setup?</summary>
-              <p className="mt-2 text-sm text-slate-600">For small events we can sometimes accommodate same-day setup — contact early to check availability.</p>
-            </details>
-
-            <details className="bg-white rounded-xl p-4 shadow">
-              <summary className="font-medium cursor-pointer">Can I customize a package?</summary>
-              <p className="mt-2 text-sm text-slate-600">Yes — all packages are modular and we provide tailored quotes.</p>
-            </details>
-          </div>
-        </div>
-
-        <div id="contact" className="bg-white rounded-2xl p-6 shadow">
-          <h3 className="text-2xl font-bold">Contact & Booking</h3>
-          <p className="mt-2 text-sm text-slate-600">Tell us date, guest count, venue, and budget — we’ll reply with options.</p>
-
-          <form className="mt-4 grid gap-3">
-            <input className="border rounded-md p-3" placeholder="Full name" />
-            <input className="border rounded-md p-3" placeholder="Phone or WhatsApp" />
-            <input className="border rounded-md p-3" placeholder="Event date (YYYY-MM-DD)" />
-            <textarea className="border rounded-md p-3" rows={4} placeholder="Message & requirements" />
-
-            <div className="flex gap-3">
-              <button type="button" className="rounded-full bg-rose-600 text-white px-4 py-2">Request quote</button>
-              <a className="rounded-full border px-4 py-2" href="mailto:hello@eventwibes.example">Email us</a>
-            </div>
-
-          <div className="mt-3 text-xs text-slate-500">By contacting you agree to our terms. We’ll reply in 1–2 business days.</div>
-          </form>
-
-          <div className="mt-4 text-sm text-slate-600 flex flex-col gap-2">
-            <div className="flex items-center gap-2"><Phone size={14}/> +91 63600 49821</div>
-            <div className="flex items-center gap-2"><Mail size={14}/> hello@eventwibes.example</div>
-            <div className="flex items-center gap-2"><MapPin size={14}/> Vijayanagara City, KAR</div>
-          </div>
-        </div>
-      </section>
+      <FaQContact />
 
       {/* MAP + FOOTER */}
-      <section className="max-w-6xl mx-auto px-6 pb-16">
-        <div className="rounded-2xl overflow-hidden shadow">
-          <iframe title="map" className="w-full h-64 border-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019171014821!2d-122.4194151846814!3d37.774929279759746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c0f0f0f0f%3A0x0!2sLocal%20City!5e0!3m2!1sen!2sin!4v1610000000000" />
-        </div>
-      </section>
+      <Map/>
 
       <Footer />
 

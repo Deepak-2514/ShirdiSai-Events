@@ -8,7 +8,7 @@ const Service = () => {
             {/* SERVICES */}
 <section
   id="services"
-  className="relative w-full overflow-hidden bg-white py-28"
+  className="relative w-full overflow-hidden bg-white pt-28"
 >
   {/* background glow */}
   <div className="absolute -top-40 left-0 h-[500px] w-[400px] rounded-full bg-pink-400/20 blur-[120px]" />
@@ -54,7 +54,7 @@ const Service = () => {
     </div>
 
     {/* SERVICES GRID — 2 cols mobile, 4 cols desktop */}
-    <div className="mt-24 grid w-full grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+    <div className="mt-14 grid w-full grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
 
       {[
         {

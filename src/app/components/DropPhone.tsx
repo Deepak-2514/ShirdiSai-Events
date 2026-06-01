@@ -223,7 +223,7 @@ function ImageSwiper({ hintClassName = "" }: { hintClassName?: string }) {
         }}
       />
       <p
-        className={`mt-1.5 whitespace-nowrap text-[8px] font-bold uppercase tracking-[0.18em] text-fuchsia-600 sm:mt-3 sm:text-[11px] sm:tracking-widest ${hintClassName}`}
+        className={`mt-2 whitespace-nowrap text-[8px] font-bold uppercase tracking-[0.18em] text-fuchsia-600 sm:mt-3 sm:text-[11px] sm:tracking-widest ${hintClassName}`}
       >
         ← swipe to explore →
       </p>
@@ -396,7 +396,7 @@ function TrustBadges({ compact = false }: { compact?: boolean }) {
 function HeroCopy() {
   return (
     <>
-      <div className="mb-3 inline-flex items-center gap-1.5 self-start sm:mb-5 sm:gap-2">
+      <div className="mb-3 inline-flex items-center gap-1.5 self-start sm:mb-5 md:px-10 sm:gap-2">
         <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-gradient-to-br from-pink-500 to-violet-500 sm:h-[7px] sm:w-[7px]" />
         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-pink-500 sm:text-[11px] sm:tracking-[0.28em]">
           Quick Callback
@@ -448,72 +448,70 @@ export default function DropPhone() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-white py-16 sm:py-20">
-      <div className="pointer-events-none absolute -top-20 left-0 h-[300px] w-[400px] rounded-full bg-pink-400/20 blur-[120px]" />
-      <div className="pointer-events-none absolute -bottom-20 right-0 h-[480px] w-[480px] rounded-full bg-violet-400/18 blur-[140px]" />
+  <div className="relative w-full overflow-hidden pt-20 pb-20">
+    <div className="relative z-10 w-full md:px-10 lg:px-16">
+      {/* Mobile */}
+      <div className="flex w-full min-w-0 flex-col gap-8 md:hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative z-20 w-full"
+        >
+          <HeroCopy />
+        </motion.div>
 
-      <div className="relative z-10 w-full px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24">
-        {/* Mobile: hero → centered swiper → form */}
-        <div className="flex w-full min-w-0 flex-col gap-8 md:hidden">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-20 w-full"
-          >
-            <HeroCopy />
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.06 }}
+          className="relative z-10 flex w-full min-w-0 flex-col items-center gap-6"
+        >
+          <div className="relative z-0 flex w-full justify-center overflow-hidden">
+            <ImageSwiper hintClassName="text-center" />
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.06 }}
-            className="relative z-10 flex w-full min-w-0 flex-col items-center gap-6"
-          >
-            <div className="relative z-0 flex w-full justify-center overflow-hidden">
-              <ImageSwiper hintClassName="text-center" />
-            </div>
-            <div className="relative z-10 w-full min-w-0">
-              <PhoneCallbackForm {...formProps} />
-              <TrustBadges compact />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Desktop: swiper left, hero + full form right */}
-        <div className="hidden w-full min-w-0 flex-row items-center gap-8 md:flex lg:gap-16 xl:gap-20">
-          <motion.div
-            initial={{ opacity: 0, x: -32 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-0 shrink-0 overflow-hidden"
-          >
-            <ImageSwiper />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 32 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-            className="relative z-10 flex min-w-0 flex-1 flex-col"
-          >
-            <HeroCopy />
-
-            <TrustBadges />
-
+          <div className="relative z-10 w-full min-w-0">
             <PhoneCallbackForm {...formProps} />
+            <TrustBadges compact />
+          </div>
+        </motion.div>
+      </div>
 
-            <p className="mt-3 text-[11px] leading-relaxed text-zinc-400">
-              By submitting, you agree to be contacted about event services. Your number stays
-              private.
-            </p>
-          </motion.div>
-        </div>
+      {/* Desktop */}
+      <div className="hidden w-full min-w-0 flex-row items-center gap-8 md:flex lg:gap-16 xl:gap-20">
+        <motion.div
+          initial={{ opacity: 0, x: -32 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative z-0 shrink-0 overflow-hidden"
+        >
+          <ImageSwiper />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 32 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.08 }}
+          className="relative z-10 flex min-w-0 flex-1 flex-col"
+        >
+          <HeroCopy />
+
+          <TrustBadges />
+
+          <PhoneCallbackForm {...formProps} />
+
+          <p className="mt-3 text-[11px] leading-relaxed text-zinc-400">
+            By submitting, you agree to be contacted about event services.
+            Your number stays private.
+          </p>
+        </motion.div>
       </div>
     </div>
-  );
+  </div>
+);
 }

@@ -71,17 +71,21 @@ const items = [
 
 export default function PinterestEventGrid() {
   return (
-    <section className="min-h-screen bg-white px-4 py-10 md:px-8">
-      <div className="mx-auto max-w-7xl">
+    <section className="bg-white pt-0 pb-10 ">
+      <div className="w-full md:px-10 xl:px-24">
         {/* Heading */}
-        <div className="m-5">
-          <h1 className="text-5xl
-          md:text-7xl
-          xl:text-8xl
-          font-black
-          tracking-[-0.06em]
-          leading-[0.9]
-          text-zinc-950">
+        <div className="mb-6">
+          <h1
+            className="
+              text-5xl
+              md:text-7xl
+              xl:text-8xl
+              font-black
+              tracking-[-0.06em]
+              leading-[0.9]
+              text-zinc-950
+            "
+          >
             Event Inspiration
           </h1>
 
@@ -108,7 +112,6 @@ export default function PinterestEventGrid() {
               <div
                 className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 ${item.height}`}
               >
-                {/* Image */}
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -116,10 +119,8 @@ export default function PinterestEventGrid() {
                   className="object-cover transition duration-500 group-hover:scale-110"
                 />
 
-                {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
 
-                {/* Content */}
                 <div className="absolute bottom-0 left-0 z-10 p-5">
                   <h3 className="text-xl font-semibold text-white">
                     {item.title}
@@ -130,7 +131,6 @@ export default function PinterestEventGrid() {
                   </p>
                 </div>
 
-                {/* Hover Glow */}
                 <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
                   <div className="absolute inset-0 bg-white/5" />
                 </div>
