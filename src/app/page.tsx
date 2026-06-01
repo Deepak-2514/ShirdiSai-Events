@@ -10,6 +10,7 @@ import { LoadingScreen } from "./components/LoadingScreen";
 import PinterestEventGrid from "./components/PremiumEventHero";
 import Service from "./components/Service";
 import DropPhone from "./components/DropPhone";
+import Footer from "./components/Footer";
 
 // EventWibes — Single-file React landing page (TailwindCSS + framer-motion)
 // Enhanced styling, video background in hero, improved OurRecentWorks, modal preview.
@@ -192,22 +193,7 @@ export default function EventWibesLanding() {
         </div>
       </section>
 
-      <footer className="bg-slate-900 text-white py-8">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <Image
-              src="/logo.png"
-              alt="Shirdi Sai Events logo"
-              width={160}
-              height={64}
-              className="h-8 w-auto mb-2"
-            />
-            <div className="text-sm text-slate-400">Decor & Styling — Local event specialists</div>
-          </div>
-
-          <div className="text-sm text-slate-400">© {new Date().getFullYear()} EventWibes — All rights reserved</div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* LIGHTBOX */}
       {lightbox.open && (
