@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from "framer-motion";
+import DropPhone from './DropPhone';
 
 const Service = () => {
   return (
@@ -52,8 +53,8 @@ const Service = () => {
       </p>
     </div>
 
-    {/* SERVICES GRID */}
-    <div className="mt-24 sm:columns-2 md:columns-3 lg:columns-4 gap-3">
+    {/* SERVICES GRID — 2 cols mobile, 4 cols desktop */}
+    <div className="mt-24 grid w-full grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
 
       {[
         {
@@ -94,13 +95,17 @@ const Service = () => {
             group
             relative
             overflow-hidden
-            rounded-[34px]
+            rounded-[28px]
+            sm:rounded-[34px]
             border
             border-zinc-200
             bg-white/80
             backdrop-blur-xl
-            p-5
-            m-4
+            flex
+            h-full
+            flex-col
+            p-4
+            sm:p-5
             shadow-[0_10px_40px_rgba(0,0,0,0.06)]
             transition-all
             duration-500
@@ -129,15 +134,19 @@ const Service = () => {
             <div
               className="
                 flex
-                h-14
-                w-14
+                h-10
+                w-10
+                sm:h-14
+                sm:w-14
                 items-center
                 justify-center
-                rounded-2xl
+                rounded-xl
+                sm:rounded-2xl
                 bg-gradient-to-br
                 from-pink-500
                 to-violet-500
-                text-xl
+                text-base
+                sm:text-xl
                 font-bold
                 text-white
                 shadow-lg
@@ -166,10 +175,11 @@ const Service = () => {
           </div>
 
           {/* CONTENT */}
-          <div className="relative mt-10">
+          <div className="relative mt-6 sm:mt-10">
             <h3
               className="
-                text-2xl
+                text-lg
+                sm:text-2xl
                 font-black
                 tracking-tight
                 text-zinc-950
@@ -180,9 +190,12 @@ const Service = () => {
 
             <p
               className="
-                mt-5
-                text-[15px]
-                leading-7
+                mt-3
+                sm:mt-5
+                text-xs
+                sm:text-[15px]
+                leading-6
+                sm:leading-7
                 text-zinc-500
               "
             >
@@ -194,10 +207,15 @@ const Service = () => {
           <div
             className="
               relative
-              mt-10
+              mt-auto
+              pt-6
+              sm:pt-10
               flex
               items-center
-              gap-3
+              gap-2
+              sm:gap-3
+              text-sm
+              sm:text-base
               font-semibold
               text-zinc-900
             "
@@ -243,6 +261,7 @@ const Service = () => {
       ))}
     </div>
   </div>
+<DropPhone />
 </section>
     </div>
   )

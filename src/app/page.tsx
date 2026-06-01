@@ -132,7 +132,7 @@ export default function EventWibesLanding() {
 
       <Service />
 
-      <DropPhone />
+      {/* <DropPhone /> */}
 
       <PinterestEventGrid />
 
