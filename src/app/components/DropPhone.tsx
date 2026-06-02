@@ -29,20 +29,22 @@ function useSwiperDims() {
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
+
       if (w < 768) {
-        const contentW = w - 32;
-        const cardW = Math.floor(Math.min(240, Math.max(168, contentW * 0.55)));
-        const cardH = Math.round(cardW * (400 / 280));
-        const wrapW = cardW + 18;
-        const wrapH = cardH + 28;
-        setDims({
-          cardW,
-          cardH,
-          wrapW,
-          wrapH,
-          stackZ: w < 400 ? 8 : 10,
-          stackY: w < 400 ? 5 : 7,
-          swipeOut: Math.round(cardW * 1.35),
+  // 12px left + 12px right
+  const cardW = w - 24;
+
+  // fixed reel height
+  const cardH = 590;
+
+  setDims({
+    cardW,
+    cardH,
+    wrapW: cardW,
+    wrapH: cardH,
+    stackZ: 6,
+    stackY: 4,
+    swipeOut: cardW * 1.3,
         });
       } else {
         setDims({
@@ -56,8 +58,11 @@ function useSwiperDims() {
         });
       }
     };
+
     update();
+
     window.addEventListener("resize", update);
+
     return () => window.removeEventListener("resize", update);
   }, []);
 
@@ -71,7 +76,16 @@ function stackTransform(
   translateX = 0,
   rotateY = 0
 ) {
-  return `perspective(800px) translateZ(${-stackZ * (dispIdx + 1)}px) translateY(${stackY * (dispIdx + 1)}px) translateX(${translateX}px) rotateY(${rotateY}deg)`;
+  const scale = 1 - dispIdx * 0.04;
+
+  return `
+    perspective(1200px)
+    translateZ(${-stackZ * dispIdx}px)
+    translateY(${stackY * dispIdx}px)
+    scale(${scale})
+    translateX(${translateX}px)
+    rotateY(${rotateY}deg)
+  `;
 }
 
 function ImageSwiper({ hintClassName = "" }: { hintClassName?: string }) {
@@ -101,26 +115,58 @@ function ImageSwiper({ hintClassName = "" }: { hintClassName?: string }) {
         width: `${w}px`,
         height: `${h}px`,
         zIndex: String(VISIBLE_STACK - dispIdx),
-        borderRadius: "20px",
-        border: "1px solid rgba(0,0,0,0.06)",
+        borderRadius: "30px",
+        border: "1px solid rgba(255,255,255,0.15)",
         overflow: "hidden",
         willChange: "transform",
+        backdropFilter: "blur(12px)",
         boxShadow:
-          "0 1px 0 rgba(255,255,255,0.85) inset, 0 2px 8px rgba(0,0,0,0.05)",
+  "0 35px 80px rgba(0,0,0,0.22), 0 15px 40px rgba(236,72,153,0.15)",
         transform: stackTransform(dispIdx, z, y),
         transition: "transform 0.32s cubic-bezier(0.22,1,0.36,1),opacity 0.32s",
-        opacity: dispIdx === 0 ? "1" : String(1 - dispIdx * 0.06),
+        opacity:
+  dispIdx === 0
+    ? "1"
+    : dispIdx === 1
+    ? "0.35"
+    : "0.15",
       });
       const img = document.createElement("img");
       img.src = DEMO_IMAGES[origIdx];
       img.alt = "";
       img.draggable = false;
-      img.style.cssText =
-        "width:100%;height:100%;object-fit:cover;pointer-events:none;display:block";
+      img.style.cssText = "width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;display:block;transform:scale(1.03)";
       const gloss = document.createElement("div");
-      gloss.style.cssText =
-        "position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.18) 0%,transparent 55%);pointer-events:none";
+
+gloss.style.cssText = `
+position:absolute;
+inset:0;
+pointer-events:none;
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.30) 0%,
+transparent 18%,
+transparent 70%,
+rgba(0,0,0,.20) 100%
+);
+`;
       el.appendChild(img);
+      const vignette = document.createElement("div");
+
+vignette.style.cssText = `
+position:absolute;
+inset:0;
+pointer-events:none;
+background:
+radial-gradient(
+circle at center,
+transparent 45%,
+rgba(0,0,0,.25) 100%
+);
+`;
+
+el.appendChild(vignette);
       el.appendChild(gloss);
       wrap.insertBefore(el, wrap.firstChild);
     });
@@ -332,7 +378,7 @@ function PhoneCallbackForm({
                   <>
                     <span className="whitespace-nowrap">Get a callback</span>
                     <ArrowRight
-                      className={`shrink-0 ${compact ? "h-2.5 w-2.5" : "h-3 w-3 sm:h-[15px] sm:w-[15px]"}`}
+                      className={`shrink-0 ${compact ? "h-2.5 w-2.5" : "h-3 w-3 sm:h-[20px] sm:w-[20px]"}`}
                     />
                   </>
                 )}
@@ -448,16 +494,16 @@ export default function DropPhone() {
   };
 
   return (
-  <div className="relative w-full overflow-hidden pt-20 pb-20">
-    <div className="relative z-10 w-full md:px-10 lg:px-16">
+  <section className="relative w-full overflow-hidden py-16 sm:py-20">
+    <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-6 md:px-10 lg:px-16">
       {/* Mobile */}
-      <div className="flex w-full min-w-0 flex-col gap-8 md:hidden">
+      <div className="flex flex-col gap-4 md:hidden">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative z-20 w-full"
+          className="w-full"
         >
           <HeroCopy />
         </motion.div>
@@ -467,27 +513,29 @@ export default function DropPhone() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.06 }}
-          className="relative z-10 flex w-full min-w-0 flex-col items-center gap-6"
+          className="flex w-full flex-col items-center gap-4"
         >
-          <div className="relative z-0 flex w-full justify-center overflow-hidden">
+          <div className="flex w-full justify-center overflow-visible px-3 py-4">
             <ImageSwiper hintClassName="text-center" />
           </div>
 
-          <div className="relative z-10 w-full min-w-0">
-            <PhoneCallbackForm {...formProps} />
-            <TrustBadges compact />
+          <div className="w-full">
+            <div className="mx-auto max-w-md">
+              <PhoneCallbackForm {...formProps} />
+              <TrustBadges compact />
+            </div>
           </div>
         </motion.div>
       </div>
 
       {/* Desktop */}
-      <div className="hidden w-full min-w-0 flex-row items-center gap-8 md:flex lg:gap-16 xl:gap-20">
+      <div className="hidden items-center gap-8 md:flex lg:gap-16 xl:gap-20">
         <motion.div
           initial={{ opacity: 0, x: -32 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative z-0 shrink-0 overflow-hidden"
+          className="shrink-0"
         >
           <ImageSwiper />
         </motion.div>
@@ -497,7 +545,7 @@ export default function DropPhone() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.08 }}
-          className="relative z-10 flex min-w-0 flex-1 flex-col"
+          className="flex min-w-0 flex-1 flex-col"
         >
           <HeroCopy />
 
@@ -512,6 +560,6 @@ export default function DropPhone() {
         </motion.div>
       </div>
     </div>
-  </div>
+  </section>
 );
 }

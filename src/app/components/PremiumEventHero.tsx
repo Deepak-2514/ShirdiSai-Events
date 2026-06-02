@@ -72,7 +72,7 @@ const items = [
 export default function PinterestEventGrid() {
   return (
     <section className="bg-white pt-0 pb-10 ">
-      <div className="w-full md:px-10 xl:px-24">
+      <div className="w-full px-6 md:px-10 xl:px-24">
         {/* Heading */}
         <div className="mb-6">
           <h1
