@@ -1,8 +1,20 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback, type FormEvent } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  type FormEvent,
+} from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, Clock, ShieldCheck, Lock } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
+  Lock,
+} from "lucide-react";
 
 /* ─── ImageSwiper ─────────────────────────────────────────────────────────── */
 const DEMO_IMAGES = [
@@ -17,12 +29,12 @@ const VISIBLE_STACK = 3;
 
 function useSwiperDims() {
   const [dims, setDims] = useState({
-    cardW: 280,
-    cardH: 400,
-    wrapW: 320,
-    wrapH: 440,
-    stackZ: 14,
-    stackY: 10,
+    cardW: 1200,
+    cardH: 800,
+    wrapW: 220,
+    wrapH: 280,
+    stackZ: 4,
+    stackY: 3,
     swipeOut: 420,
   });
 
@@ -30,26 +42,23 @@ function useSwiperDims() {
     const update = () => {
       const w = window.innerWidth;
 
+      // Mobile
       if (w < 768) {
-  // 12px left + 12px right
-  const cardW = w - 24;
-
-  // fixed reel height
-  const cardH = 590;
-
-  setDims({
-    cardW,
-    cardH,
-    wrapW: cardW,
-    wrapH: cardH,
-    stackZ: 6,
-    stackY: 4,
-    swipeOut: cardW * 1.3,
-        });
-      } else {
         setDims({
-          cardW: 268,
-          cardH: 384,
+          cardW: 1200,
+          cardH: 800,
+          wrapW: 220,
+          wrapH: 280, // was 280
+          stackZ: 4,
+          stackY: 3,
+          swipeOut: 250,
+        });
+      }
+      // Desktop
+      else {
+        setDims({
+          cardW: 1200,
+          cardH: 800,
           wrapW: 304,
           wrapH: 424,
           stackZ: 14,
@@ -62,7 +71,6 @@ function useSwiperDims() {
     update();
 
     window.addEventListener("resize", update);
-
     return () => window.removeEventListener("resize", update);
   }, []);
 
@@ -74,7 +82,7 @@ function stackTransform(
   stackZ: number,
   stackY: number,
   translateX = 0,
-  rotateY = 0
+  rotateY = 0,
 ) {
   const scale = 1 - dispIdx * 0.04;
 
@@ -119,75 +127,46 @@ function ImageSwiper({ hintClassName = "" }: { hintClassName?: string }) {
         border: "1px solid rgba(255,255,255,0.15)",
         overflow: "hidden",
         willChange: "transform",
-        backdropFilter: "blur(12px)",
-        boxShadow:
-  "0 35px 80px rgba(0,0,0,0.22), 0 15px 40px rgba(236,72,153,0.15)",
         transform: stackTransform(dispIdx, z, y),
         transition: "transform 0.32s cubic-bezier(0.22,1,0.36,1),opacity 0.32s",
-        opacity:
-  dispIdx === 0
-    ? "1"
-    : dispIdx === 1
-    ? "0.35"
-    : "0.15",
+        opacity: dispIdx === 0 ? "1" : dispIdx === 1 ? "0.35" : "0.15",
       });
       const img = document.createElement("img");
       img.src = DEMO_IMAGES[origIdx];
       img.alt = "";
       img.draggable = false;
-      img.style.cssText = "width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;display:block;transform:scale(1.03)";
-      const gloss = document.createElement("div");
+      img.style.cssText =
+        "width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;display:block;transform:scale(1.03)";
 
-gloss.style.cssText = `
-position:absolute;
-inset:0;
-pointer-events:none;
-background:
-linear-gradient(
-180deg,
-rgba(255,255,255,.30) 0%,
-transparent 18%,
-transparent 70%,
-rgba(0,0,0,.20) 100%
-);
-`;
       el.appendChild(img);
-      const vignette = document.createElement("div");
 
-vignette.style.cssText = `
-position:absolute;
-inset:0;
-pointer-events:none;
-background:
-radial-gradient(
-circle at center,
-transparent 45%,
-rgba(0,0,0,.25) 100%
-);
-`;
-
-el.appendChild(vignette);
-      el.appendChild(gloss);
       wrap.insertBefore(el, wrap.firstChild);
     });
   }, []);
 
   const refreshPos = useCallback(() => {
     const { stackZ: z, stackY: y } = dimsRef.current;
-    const cards = [...(wrapRef.current?.querySelectorAll(".s-card") ?? [])] as HTMLElement[];
+    const cards = [
+      ...(wrapRef.current?.querySelectorAll(".s-card") ?? []),
+    ] as HTMLElement[];
     cards.forEach((c, i) => {
       c.style.zIndex = String(VISIBLE_STACK - i);
-      c.style.transition = "transform 0.32s cubic-bezier(0.22,1,0.36,1),opacity 0.32s";
+      c.style.transition =
+        "transform 0.32s cubic-bezier(0.22,1,0.36,1),opacity 0.32s";
       c.style.transform = stackTransform(i, z, y);
       c.style.opacity = i === 0 ? "1" : String(1 - i * 0.06);
     });
   }, []);
 
   const top = () => {
-    const cards = [...(wrapRef.current?.querySelectorAll(".s-card") ?? [])] as HTMLElement[];
+    const cards = [
+      ...(wrapRef.current?.querySelectorAll(".s-card") ?? []),
+    ] as HTMLElement[];
     if (!cards.length) return null;
     return cards.reduce((front, c) =>
-      parseInt(c.style.zIndex, 10) > parseInt(front.style.zIndex, 10) ? c : front
+      parseInt(c.style.zIndex, 10) > parseInt(front.style.zIndex, 10)
+        ? c
+        : front,
     );
   };
 
@@ -197,7 +176,8 @@ el.appendChild(vignette);
     if (!c) return;
     const dir = Math.sign(dx);
     const { swipeOut: out, stackZ: z, stackY: y } = dimsRef.current;
-    c.style.transition = "transform 0.33s cubic-bezier(0.22,1,0.36,1),opacity 0.33s";
+    c.style.transition =
+      "transform 0.33s cubic-bezier(0.22,1,0.36,1),opacity 0.33s";
     c.style.transform = stackTransform(0, z, y, dir * out, dir * 22);
     c.style.opacity = "0";
     setTimeout(() => {
@@ -259,7 +239,7 @@ el.appendChild(vignette);
     <div className="flex shrink-0 flex-col items-center">
       <div
         ref={wrapRef}
-        className="relative isolate mx-auto max-w-full overflow-hidden select-none"
+        className="relative isolate mx-auto overflow-hidden select-none"
         style={{
           width: wrapW,
           height: wrapH,
@@ -320,7 +300,9 @@ function PhoneCallbackForm({
                 <CheckCircle2 size={compact ? 16 : 18} />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-zinc-900 sm:text-sm">You&apos;re on the list!</p>
+                <p className="text-xs font-bold text-zinc-900 sm:text-sm">
+                  You&apos;re on the list!
+                </p>
                 <p className="mt-0.5 text-[10px] text-zinc-500 sm:text-xs">
                   Our team will call you within 5–7 hours.
                 </p>
@@ -448,7 +430,14 @@ function HeroCopy() {
           Quick Callback
         </span>
       </div>
-      <h2 className="mb-3 w-full text-[clamp(1.75rem,7vw,3.2rem)] font-black leading-[0.95] tracking-[-0.05em] text-zinc-950 sm:mb-3">
+      <h2
+        className="mb-3 text-5xl
+          md:text-7xl
+          xl:text-8xl
+          font-black
+          tracking-[-0.06em]
+          leading-[0.9] text-zinc-950 "
+      >
         Drop your
         <span className="block bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent">
           phone number
@@ -456,8 +445,8 @@ function HeroCopy() {
       </h2>
       <p className="mb-0 max-w-none text-[13px] leading-snug text-zinc-500 sm:mb-6 sm:max-w-sm sm:text-[15px] sm:leading-relaxed">
         We&apos;ll reach out within{" "}
-        <span className="font-semibold text-zinc-700">5 to 7 hours</span> to plan your perfect
-        celebration.
+        <span className="font-semibold text-zinc-700">5 to 7 hours</span> to
+        plan your perfect celebration.
       </p>
     </>
   );
@@ -494,72 +483,72 @@ export default function DropPhone() {
   };
 
   return (
-  <section className="relative w-full overflow-hidden py-16 sm:py-20">
-    <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-6 md:px-10 lg:px-16">
-      {/* Mobile */}
-      <div className="flex flex-col gap-4 md:hidden">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="w-full"
-        >
-          <HeroCopy />
-        </motion.div>
+    <section className="relative w-full overflow-hidden py-16 sm:py-20">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-6 md:px-10 lg:px-16">
+        {/* Mobile */}
+        <div className="flex flex-col gap-4 md:hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="w-full"
+          >
+            <HeroCopy />
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.06 }}
-          className="flex w-full flex-col items-center gap-4"
-        >
-          <div className="flex w-full justify-center overflow-visible px-3 py-4">
-            <ImageSwiper hintClassName="text-center" />
-          </div>
-
-          <div className="w-full">
-            <div className="mx-auto max-w-md">
-              <PhoneCallbackForm {...formProps} />
-              <TrustBadges compact />
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.06 }}
+            className="flex w-full flex-col items-center gap-4"
+          >
+            <div className="flex justify-center overflow-visible px-1 py-2">
+              <ImageSwiper hintClassName="text-center" />
             </div>
-          </div>
-        </motion.div>
+
+            <div className="w-full">
+              <div className="mx-auto max-w-md">
+                <PhoneCallbackForm {...formProps} />
+                <TrustBadges compact />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Desktop */}
+        <div className="hidden items-center gap-8 md:flex lg:gap-16 xl:gap-20">
+          <motion.div
+            initial={{ opacity: 0, x: -32 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="shrink-0"
+          >
+            <ImageSwiper />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 32 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.08 }}
+            className="flex min-w-0 flex-1 flex-col"
+          >
+            <HeroCopy />
+
+            <TrustBadges />
+
+            <PhoneCallbackForm {...formProps} />
+
+            <p className="mt-3 text-[11px] leading-relaxed text-zinc-400">
+              By submitting, you agree to be contacted about event services.
+              Your number stays private.
+            </p>
+          </motion.div>
+        </div>
       </div>
-
-      {/* Desktop */}
-      <div className="hidden items-center gap-8 md:flex lg:gap-16 xl:gap-20">
-        <motion.div
-          initial={{ opacity: 0, x: -32 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="shrink-0"
-        >
-          <ImageSwiper />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 32 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.08 }}
-          className="flex min-w-0 flex-1 flex-col"
-        >
-          <HeroCopy />
-
-          <TrustBadges />
-
-          <PhoneCallbackForm {...formProps} />
-
-          <p className="mt-3 text-[11px] leading-relaxed text-zinc-400">
-            By submitting, you agree to be contacted about event services.
-            Your number stays private.
-          </p>
-        </motion.div>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }
