@@ -1,8 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import Masonry from "react-masonry-css";
 import { motion } from "framer-motion";
 
+const breakpointColumnsObj = {
+  default: 4,
+  1200: 4,
+  992: 3,
+  768: 2,
+  576: 2,
+  0: 2,
+};
 const items = [
   {
     id: 1,
@@ -71,14 +80,16 @@ const items = [
 
 export default function PinterestEventGrid() {
   return (
-    <section className="bg-white pt-0 pb-10 ">
-      <div className="w-full px-6 md:px-10 xl:px-24">
+    <section className="bg-white py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div className="mb-6">
-          <h1
+        <div className="mb-12">
+          <h2
             className="
-              text-5xl
-              md:text-7xl
+              text-4xl
+              sm:text-5xl
+              md:text-6xl
+              lg:text-7xl
               xl:text-8xl
               font-black
               tracking-[-0.06em]
@@ -87,39 +98,63 @@ export default function PinterestEventGrid() {
             "
           >
             Event Inspiration
-          </h1>
+          </h2>
 
-          <p className="mt-3 max-w-2xl text-neutral-600">
+          <p className="mt-4 max-w-2xl text-neutral-600 text-base md:text-lg">
             Discover premium event ideas, venues, celebrations, and experiences
             curated for your next unforgettable moment.
           </p>
         </div>
 
-        {/* Masonry Layout */}
-        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
+        {/* Masonry */}
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="flex -ml-5 w-auto"
+          columnClassName="pl-5 bg-clip-padding"
+        >
           {items.map((item, index) => (
             <motion.div
               key={item.id}
+              className="mb-5"
               initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{
                 duration: 0.5,
-                delay: index * 0.08,
+                delay: index * 0.05,
               }}
               whileHover={{ y: -6 }}
-              className="mb-5 break-inside-avoid"
             >
               <div
-                className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 ${item.height}`}
+                className={`
+                  group
+                  relative
+                  overflow-hidden
+                  rounded-3xl
+                  bg-neutral-900
+                  ${item.height}
+                `}
               >
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-cover transition duration-500 group-hover:scale-110"
+                  priority={item.id <= 4}
+                  sizes="
+                    (max-width: 640px) 100vw,
+                    (max-width: 768px) 50vw,
+                    (max-width: 1024px) 33vw,
+                    25vw
+                  "
+                  className="
+                    object-cover
+                    transition-transform
+                    duration-700
+                    group-hover:scale-110
+                  "
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
                 <div className="absolute bottom-0 left-0 z-10 p-5">
                   <h3 className="text-xl font-semibold text-white">
@@ -130,14 +165,10 @@ export default function PinterestEventGrid() {
                     Premium event experience
                   </p>
                 </div>
-
-                <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
-                  <div className="absolute inset-0 bg-white/5" />
-                </div>
               </div>
             </motion.div>
           ))}
-        </div>
+        </Masonry>
       </div>
     </section>
   );

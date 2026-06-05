@@ -239,7 +239,7 @@ function ImageSwiper({ hintClassName = "" }: { hintClassName?: string }) {
     <div className="flex shrink-0 flex-col items-center">
       <div
         ref={wrapRef}
-        className="relative isolate mx-auto overflow-hidden select-none"
+        className="relative isolate mx-auto overflow-hidden rounded-2xl select-none border-2 border-black/[0.08] bg-white/80 backdrop-blur-sm"
         style={{
           width: wrapW,
           height: wrapH,
