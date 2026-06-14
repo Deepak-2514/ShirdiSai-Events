@@ -4,7 +4,7 @@ import { AspectRatioPortrait } from "./AspectRatio";
 const Map = () => {
   return (
     <div>
-      <section className="mx-auto px-6 pb-16">
+      <section className="mx-auto px-3 pb-16">
         <div className="rounded-2xl overflow-hidden shadow">
           <iframe
             title="map"

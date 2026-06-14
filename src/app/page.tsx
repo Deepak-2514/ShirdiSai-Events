@@ -23,11 +23,6 @@ import Map from "./components/Map";
 import { ExpandingCards } from "./components/Expanding_card";
 import { cn } from "../lib/utils";
 
-// EventWibes — Single-file React landing page (TailwindCSS + framer-motion)
-// Enhanced styling, video background in hero, improved OurRecentWorks, modal preview.
-// Drop into a React app (Vite / CRA) with Tailwind configured.
-// Dependencies: framer-motion, lucide-react, tailwindcss
-
 const OurRecentWorks = [
   {
     title: "Entrance Decor",
