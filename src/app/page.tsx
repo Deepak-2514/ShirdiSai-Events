@@ -162,16 +162,34 @@ export default function EventWibesLanding() {
         <Navbar />
         <CardsParallax items={OurRecentWorks} />
         <Service />
-        <ExpandingCards
-          items={services.map((s, i) => ({
-            id: s.title,
-            title: s.title,
-            description: s.desc,
-            imgSrc: s.imgSrc,
-            icon: s.icon,
-            linkHref: s.linkHref,
-          }))}
-        />
+        <section
+          id="packages"
+          className="py-24 bg-transparent border-t border-zinc-200/50"
+        >
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-16 text-center">
+            <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.3em] text-[#B28859] mb-4">
+              Core Expertise
+            </p>
+            <h2 className="text-3xl md:text-5xl font-serif font-light text-zinc-950">
+              Visual Service{" "}
+              <span className="font-serif italic text-[#B28859]">Showcase</span>
+            </h2>
+            <p className="mt-4 text-xs md:text-sm text-zinc-650 font-light max-w-lg mx-auto">
+              Hover or click on the cards to explore the detailed offerings for
+              each premium production package.
+            </p>
+          </div>
+          <ExpandingCards
+            items={services.map((s) => ({
+              id: s.title,
+              title: s.title,
+              description: s.desc,
+              imgSrc: s.imgSrc,
+              icon: s.icon,
+              linkHref: s.linkHref,
+            }))}
+          />
+        </section>
         <FaQContact />
         <Map />
         <Footer />

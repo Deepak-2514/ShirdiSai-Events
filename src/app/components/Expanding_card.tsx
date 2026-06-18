@@ -1,14 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Pyramid,
-  Castle,
-  Mountain,
-  TowerControl,
-  Building,
-  Landmark,
-} from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export interface CardItem {
@@ -58,7 +51,7 @@ export const ExpandingCards = React.forwardRef<
         .join(" ");
       return { gridTemplateRows: rows };
     }
-  }, [activeIndex, items.length, isDesktop]);
+  }, [activeIndex, items, isDesktop]);
 
   const handleInteraction = (index: number) => {
     setActiveIndex(index);
@@ -67,7 +60,7 @@ export const ExpandingCards = React.forwardRef<
   return (
     <ul
       className={cn(
-        "w-full max-w-6xl gap-2",
+        "w-full max-w-6xl gap-3 mx-auto px-4 sm:px-6 lg:px-8",
         "grid",
         "h-[600px] md:h-[500px]",
         "transition-[grid-template-columns,grid-template-rows] duration-500 ease-out",
@@ -86,7 +79,7 @@ export const ExpandingCards = React.forwardRef<
         <li
           key={item.id}
           className={cn(
-            "group relative mx-3 cursor-pointer overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm",
+            "group relative cursor-pointer overflow-hidden rounded-3xl border border-zinc-200 bg-white text-zinc-900 transition-all duration-300",
             "md:min-w-[80px]",
             "min-h-0 min-w-0",
           )}
@@ -96,27 +89,29 @@ export const ExpandingCards = React.forwardRef<
           tabIndex={0}
           data-active={activeIndex === index}
         >
-          <img
+          <Image
             src={item.imgSrc}
             alt={item.title}
-            className="absolute inset-0 h-full w-full object-cover transition-all duration-300 ease-out group-data-[active=true]:scale-100 group-data-[active=true]:grayscale-0 scale-110 grayscale"
+            fill
+            sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
+            className="absolute inset-0 h-full w-full object-cover transition-all duration-500 ease-out group-data-[active=true]:scale-100 group-data-[active=true]:brightness-100 scale-105 brightness-50"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent transition-opacity duration-300 group-data-[active=true]:opacity-95" />
 
-          <article className="absolute inset-0 flex flex-col justify-end gap-2 p-4">
-            <h3 className="hidden origin-left rotate-90 text-sm font-light uppercase tracking-wider text-white/80 opacity-100 transition-all duration-300 ease-out md:block group-data-[active=true]:opacity-0">
+          <article className="absolute inset-0 flex flex-col justify-end gap-2 p-6">
+            <h3 className="hidden origin-left rotate-90 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D8A06B] opacity-100 transition-all duration-300 ease-out md:block group-data-[active=true]:opacity-0">
               {item.title}
             </h3>
 
-            <div className="text-white/90 opacity-0 transition-all duration-300 delay-75 ease-out group-data-[active=true]:opacity-100">
+            <div className="text-[#D8A06B] opacity-0 transition-all duration-300 delay-75 ease-out group-data-[active=true]:opacity-100 text-xl">
               {item.icon}
             </div>
 
-            <h3 className="text-xl font-bold text-white opacity-0 transition-all duration-300 delay-150 ease-out group-data-[active=true]:opacity-100">
+            <h3 className="text-2xl font-serif font-light text-white opacity-0 transition-all duration-300 delay-100 ease-out group-data-[active=true]:opacity-100">
               {item.title}
             </h3>
 
-            <p className="w-full max-w-xs text-sm text-white/80 opacity-0 transition-all duration-300 delay-225 ease-out group-data-[active=true]:opacity-100">
+            <p className="w-full max-w-xs text-xs md:text-sm text-zinc-200 opacity-0 transition-all duration-300 delay-150 ease-out group-data-[active=true]:opacity-100 font-light leading-relaxed">
               {item.description}
             </p>
           </article>
