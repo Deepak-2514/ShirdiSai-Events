@@ -431,12 +431,13 @@ function HeroCopy() {
         </span>
       </div>
       <h2
-        className="mb-3 text-5xl
-          md:text-7xl
-          xl:text-8xl
+        className="mb-3 text-4xl
+          sm:text-5xl
+          md:text-6xl
+          xl:text-7xl
           font-black
-          tracking-[-0.06em]
-          leading-[0.9] text-zinc-950 "
+          tracking-tight
+          leading-[0.95] text-zinc-950 "
       >
         Drop your
         <span className="block bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent">

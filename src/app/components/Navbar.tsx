@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Instagram, Menu, X, Sparkles } from "lucide-react";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -28,8 +28,12 @@ export default function Home() {
       setScrolled(window.scrollY > 20);
 
       const scrollTop = window.scrollY;
-      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const newProgress = documentHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / documentHeight) * 100)) : 0;
+      const documentHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const newProgress =
+        documentHeight > 0
+          ? Math.min(100, Math.max(0, (scrollTop / documentHeight) * 100))
+          : 0;
       setProgress(newProgress);
     };
 
@@ -42,7 +46,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="font-sarif text-[#F6F1EC]">
+    <div className="text-[#F6F1EC]">
       <div className="fixed top-0 inset-x-0 z-51 h-1 bg-white/10">
         <div
           className="h-full bg-[#D8A06B] transition-all duration-150"
@@ -61,15 +65,13 @@ export default function Home() {
         }`}
       >
         <div className=" mx-auto flex items-center justify-between px-6">
-          <a
-            href="#home"
-            className="flex items-center gap-3"
-          >
+          <a href="#home" className="flex items-center gap-3">
             <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#F8C06D] via-[#EEA556] to-[#D9873F] shadow-lg shadow-[#D8A06B]/20">
               <Sparkles className="h-5 w-5 text-black" />
             </span>
-            <span className="text-lg font-serif ">
-              <span className="text-[#D8A06B]">Shirdi Sai</span> <span className="text-white"> Events</span>
+            <span className="font-serif text-base font-semibold tracking-tight sm:text-lg">
+              <span className="text-[#D8A06B]">Shirdi Sai</span>{" "}
+              <span className="text-white"> Events</span>
             </span>
           </a>
 
@@ -87,6 +89,15 @@ export default function Home() {
 
           <div className="hidden items-center gap-4 md:flex">
             <a
+              href="https://www.instagram.com/hospet_shirdisaievents_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow Shirdi Sai Events on Instagram"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-white transition hover:bg-white/10 hover:text-[#E6965A]"
+            >
+              <Instagram className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <a
               href="#contact"
               className="inline-flex items-center rounded-full bg-gradient-to-r from-[#F8C06D] via-[#EEA556] to-[#D9873F] px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-[#D9873F]/25 transition hover:opacity-95"
             >
@@ -94,13 +105,28 @@ export default function Home() {
             </a>
           </div>
 
-          <button
-            aria-label="Toggle menu"
-            onClick={() => setOpen((v) => !v)}
-            className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-white shadow-sm transition hover:bg-white/10"
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <a
+              href="https://www.instagram.com/hospet_shirdisaievents_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow Shirdi Sai Events on Instagram"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-white shadow-sm transition hover:bg-white/10 hover:text-[#E6965A]"
+            >
+              <Instagram className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <button
+              aria-label="Toggle menu"
+              onClick={() => setOpen((v) => !v)}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-white shadow-sm transition hover:bg-white/10"
+            >
+              {open ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </button>
+          </div>
         </div>
 
         <AnimatePresence>

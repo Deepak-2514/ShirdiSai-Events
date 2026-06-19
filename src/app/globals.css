@@ -1,8 +1,37 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+:root {
+  --font-sans-fallback: Arial, Helvetica, sans-serif;
+  --font-display: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #ffffff;
+  color: #18181b;
+  font-family: var(--font-sans), var(--font-sans-fallback);
+  text-rendering: optimizeLegibility;
+}
+
+.font-serif,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}
+
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
 

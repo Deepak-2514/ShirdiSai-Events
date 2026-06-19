@@ -1,27 +1,14 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import {
-  MapPin,
-  Phone,
-  Mail,
-  X,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import { CardsParallax } from "./components/Hero";
 import { LoadingScreen } from "./components/LoadingScreen";
-import PinterestEventGrid from "./components/PremiumEventHero";
 import Service from "./components/Service";
-import DropPhone from "./components/DropPhone";
 import Footer from "./components/Footer";
 import FaQContact from "./components/FaQContact";
 import Map from "./components/Map";
 import { ExpandingCards } from "./components/Expanding_card";
-import { cn } from "../lib/utils";
 
 const OurRecentWorks = [
   {
@@ -64,8 +51,6 @@ const OurRecentWorks = [
 
 export default function EventWibesLanding() {
   const [isLoading, setIsLoading] = useState(true);
-  const [lightbox, setLightbox] = useState({ open: false, currentIndex: 0 });
-  const autoAdvanceRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Keep a minimal loading phase before first paint completes.
@@ -111,47 +96,6 @@ export default function EventWibesLanding() {
     },
   ];
 
-  // Video background moved into <Hero /> (kept ref here for now to avoid unrelated refactors).
-
-  const nextImage = () => {
-    setLightbox((prev) => ({
-      open: prev.open,
-      currentIndex: (prev.currentIndex + 1) % OurRecentWorks.length,
-    }));
-  };
-
-  const prevImage = () => {
-    setLightbox((prev) => ({
-      open: prev.open,
-      currentIndex:
-        (prev.currentIndex - 1 + OurRecentWorks.length) % OurRecentWorks.length,
-    }));
-  };
-
-  // Auto-advance images every 3 seconds
-  useEffect(() => {
-    if (lightbox.open) {
-      autoAdvanceRef.current = setInterval(() => {
-        setLightbox((prev) => ({
-          open: prev.open,
-          currentIndex: (prev.currentIndex + 1) % OurRecentWorks.length,
-        }));
-      }, 5000);
-    } else {
-      if (autoAdvanceRef.current) {
-        clearInterval(autoAdvanceRef.current);
-        autoAdvanceRef.current = null;
-      }
-    }
-
-    return () => {
-      if (autoAdvanceRef.current) {
-        clearInterval(autoAdvanceRef.current);
-        autoAdvanceRef.current = null;
-      }
-    };
-  }, [lightbox.open]);
-
   if (isLoading) {
     return <LoadingScreen />;
   }
@@ -164,17 +108,16 @@ export default function EventWibesLanding() {
         <Service />
         <section
           id="packages"
-          className="py-24 bg-transparent border-t border-zinc-200/50"
+          className="border-t border-zinc-200/50 bg-transparent py-16 sm:py-20 lg:py-24"
         >
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-16 text-center">
-            <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.3em] text-[#B28859] mb-4">
+          <div className="mx-auto mb-10 max-w-7xl px-4 text-center sm:mb-14 sm:px-6 lg:mb-16 lg:px-12">
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.24em] text-[#B28859] sm:text-xs sm:tracking-[0.3em]">
               Core Expertise
             </p>
-            <h2 className="text-3xl md:text-5xl font-serif font-light text-zinc-950">
-              Visual Service{" "}
-              <span className="font-serif italic text-[#B28859]">Showcase</span>
+            <h2 className="text-3xl font-black leading-tight tracking-tight text-zinc-950 sm:text-4xl md:text-5xl">
+              Visual Service <span className="text-[#B28859]">Showcase</span>
             </h2>
-            <p className="mt-4 text-xs md:text-sm text-zinc-650 font-light max-w-lg mx-auto">
+            <p className="mx-auto mt-4 max-w-lg text-[12px] font-light leading-relaxed text-zinc-500 sm:text-[13px] md:text-sm">
               Hover or click on the cards to explore the detailed offerings for
               each premium production package.
             </p>

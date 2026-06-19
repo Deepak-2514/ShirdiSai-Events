@@ -27,12 +27,12 @@ export function CardsParallax({ items }: CardsParallaxProps) {
 
             <div className="absolute inset-0" />
 
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
-              <h2 className="text-white text-5xl md:text-7xl font-black">
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center sm:px-6">
+              <h2 className="text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
                 {item.title}
               </h2>
 
-              <p className="mt-4 max-w-2xl text-lg text-white/90">
+              <p className="mt-4 max-w-2xl text-[13px] leading-relaxed text-white/90 sm:text-base md:text-lg">
                 {item.description}
               </p>
             </div>

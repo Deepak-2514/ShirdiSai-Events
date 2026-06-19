@@ -71,25 +71,26 @@ const items = [
 
 export default function PinterestEventGrid() {
   return (
-    <section className="bg-white pt-0 pb-10 ">
-      <div className="w-full px-4 md:px-10 xl:px-24">
+    <section className="bg-white pb-10 pt-0">
+      <div className="w-full px-4 sm:px-6 md:px-10 xl:px-24">
         {/* Heading */}
         <div className="mb-6">
           <h1
             className="
-              text-5xl
-              md:text-7xl
-              xl:text-8xl
+              text-4xl
+              sm:text-5xl
+              md:text-6xl
+              xl:text-7xl
               font-black
-              tracking-[-0.06em]
-              leading-[0.9]
+              tracking-tight
+              leading-[0.95]
               text-zinc-950
             "
           >
             Event Inspiration
           </h1>
 
-          <p className="mt-3 max-w-2xl text-neutral-600">
+          <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-neutral-600 sm:text-[15px]">
             Discover premium event ideas, venues, celebrations, and experiences
             curated for your next unforgettable moment.
           </p>
@@ -122,11 +123,11 @@ export default function PinterestEventGrid() {
                 <div className="absolute inset-0 " />
 
                 <div className="absolute bottom-0 left-0 z-10 p-3">
-                  <h3 className="text-xl font-semibold text-white">
+                  <h3 className="text-base font-semibold leading-tight text-white sm:text-lg">
                     {item.title}
                   </h3>
 
-                  <p className="mt-1 text-sm text-neutral-300">
+                  <p className="mt-1 text-xs leading-relaxed text-neutral-300 sm:text-sm">
                     Premium event experience
                   </p>
                 </div>

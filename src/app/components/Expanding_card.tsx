@@ -62,7 +62,7 @@ export const ExpandingCards = React.forwardRef<
       className={cn(
         "w-full max-w-6xl gap-3 mx-auto px-4 sm:px-6 lg:px-8",
         "grid",
-        "h-[600px] md:h-[500px]",
+        "h-[560px] sm:h-[600px] md:h-[500px]",
         "transition-[grid-template-columns,grid-template-rows] duration-500 ease-out",
         className,
       )}
@@ -98,20 +98,20 @@ export const ExpandingCards = React.forwardRef<
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent transition-opacity duration-300 group-data-[active=true]:opacity-95" />
 
-          <article className="absolute inset-0 flex flex-col justify-end gap-2 p-6">
-            <h3 className="hidden origin-left rotate-90 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D8A06B] opacity-100 transition-all duration-300 ease-out md:block group-data-[active=true]:opacity-0">
+          <article className="absolute inset-0 flex flex-col justify-end gap-2.5 p-4 sm:p-5 md:p-6">
+            <h3 className="hidden origin-left rotate-90 text-[10px] font-bold uppercase tracking-[0.22em] text-[#D8A06B] opacity-100 transition-all duration-300 ease-out md:block group-data-[active=true]:opacity-0">
               {item.title}
             </h3>
 
-            <div className="text-[#D8A06B] opacity-0 transition-all duration-300 delay-75 ease-out group-data-[active=true]:opacity-100 text-xl">
+            <div className="text-lg text-[#D8A06B] opacity-0 transition-all duration-300 delay-75 ease-out group-data-[active=true]:opacity-100 sm:text-xl">
               {item.icon}
             </div>
 
-            <h3 className="text-2xl font-serif font-light text-white opacity-0 transition-all duration-300 delay-100 ease-out group-data-[active=true]:opacity-100">
+            <h3 className="text-xl font-black leading-tight tracking-tight text-white opacity-0 transition-all duration-300 delay-100 ease-out group-data-[active=true]:opacity-100 sm:text-2xl">
               {item.title}
             </h3>
 
-            <p className="w-full max-w-xs text-xs md:text-sm text-zinc-200 opacity-0 transition-all duration-300 delay-150 ease-out group-data-[active=true]:opacity-100 font-light leading-relaxed">
+            <p className="w-full max-w-xs text-[12px] font-light leading-relaxed text-zinc-200 opacity-0 transition-all duration-300 delay-150 ease-out group-data-[active=true]:opacity-100 sm:text-[13px] md:text-sm">
               {item.description}
             </p>
           </article>

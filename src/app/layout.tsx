@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
-const cormorantGaramond = Cormorant_Garamond({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-sans",
 });
-
 export const metadata: Metadata = {
   title: "Shirdi Sai Events",
   description: "Event decor, styling, and production services",
@@ -21,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${plusJakartaSans.className} ${cormorantGaramond.className} antialiased`}
+        className={`${plusJakartaSans.variable} antialiased`}
       >
         {children}
       </body>
