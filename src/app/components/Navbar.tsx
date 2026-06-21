@@ -120,11 +120,7 @@ export default function Home() {
               onClick={() => setOpen((v) => !v)}
               className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-white shadow-sm transition hover:bg-white/10"
             >
-              {open ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
