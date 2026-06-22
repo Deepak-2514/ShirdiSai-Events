@@ -12,7 +12,7 @@ export default function Home() {
   const links = [
     { href: "#home", label: "Home" },
     { href: "#services", label: "Services" },
-    { href: "#gallery", label: "Gallery" },
+    { href: "/Gallery", label: "Gallery" },
     { href: "#packages", label: "Packages" },
     { href: "#reviews", label: "Reviews" },
     { href: "#contact", label: "Contact" },
